@@ -5,7 +5,7 @@ const Testimonial = ({testimonialData}) => {
   return (
     <div id="Testimonial" className="Testimonial">
         <div className="testimonial-container">
-            <marquee scrollamount="40">
+            <marquee scrollamount="34">
                 <p>
                     Making the Future of Filmmaking •
                 </p>

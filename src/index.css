@@ -1821,14 +1821,14 @@ a,a:visited {
 
   /* Testimonial query starts */
   .Testimonial .testimonial-container h1{
-    font-size: 28px;
+    font-size: 25px;
   }
   .testimonial-container .testimonial-wrapper{
     gap: 40px;
   }
-
   .testimonial-container .testimony {
     min-height: 260px;
+    min-width: 360px;
   }
   .testimonial-container .quote .quote-icon {
     font-size: 35px;
@@ -1916,6 +1916,7 @@ a,a:visited {
     padding: 5px 0;
     width: 68px;
     box-shadow: none;
+    text-shadow: none;
   }
   .btn a{
     font-size: 14px;
