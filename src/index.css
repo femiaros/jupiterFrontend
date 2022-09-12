@@ -1203,11 +1203,11 @@ footer .footer-container{
 }
 .footer-container .logo h1{
   color: var(--color2);
-  font-size: 60px;
+  font-size: 55px;
   font-weight:500 ;
 }
 .footer-container .logo h2{
-  letter-spacing: 3px;
+  letter-spacing: 2.5px;
   font-size: 16px;
   font-weight: 500;
 }
@@ -1814,9 +1814,8 @@ a,a:visited {
     justify-content: center;
   }
   header nav .menuIcon{
-    display: block;
+    display: flex;
     cursor: pointer;
-    z-index: 10;
   }
 
   /* Testimonial query starts */
@@ -1902,7 +1901,7 @@ a,a:visited {
   }
   .logo h1 {
     font-size: 40px;
-    letter-spacing: -9px;
+    letter-spacing: -10px;
   }
 
   .logo .logo-right h2 {
@@ -2066,13 +2065,20 @@ a,a:visited {
   }
   /* Testimony query ends */
 
-  /* .intro-container .intro-row {
-    justify-content: center;
-  } */
   .intro-container .intro-row .intro-col {
     flex-basis: 100%;
     min-width: 350px;
   }
+
+  /* register query starts */
+  .register-container input[type="text"],
+  .register-container input[type="password"],
+  .register-container input[type="email"],
+  .register-container button,
+  .register-container textarea {
+    font-size: 19px;
+  }
+  /* register query ends */
 
   /* subscribe query starts */
   .subscribe-container .subcol1 p {
@@ -2092,9 +2098,25 @@ a,a:visited {
   /* subscribe query ends */
 
   /* footer query starts */
+  .footer-container .logo h1 {
+    font-size: 45px;
+    font-weight: 500;
+    letter-spacing: -11px;
+  }
+
+  .footer-container .logo h2 {
+    letter-spacing: 1px;
+    font-size: 15px;
+  }
+  .footer-container .logo h3 {
+    margin-top: .5px;
+    font-size: 11px;
+  }
+  .footer-container .reach-us {
+    font-size: 15px;
+  }
   .footer-container .footer-map h3{
     margin-bottom: 10px;
-    color: #3FC62B;
   }
   .footer-container .footer-courses h3{
     font-weight: 600;
