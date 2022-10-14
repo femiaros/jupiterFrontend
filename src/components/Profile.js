@@ -1,16 +1,14 @@
 import Pageheader from "./Pageheader"
 import {Link as LinkR, useNavigate} from "react-router-dom";
-import { useEffect, useContext } from "react";
-import AuthContext from '../context/AuthProvider';
+import { useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import useLogout from "../hooks/useLogout";
 
 const Profile = ({items}) => {
   const pageHeader = items[0].profilePageHeader[0];
-  const {setShowNav} = useContext(AuthContext);
 
   const navigate = useNavigate();
-  const {auth} = useAuth();
+  const {auth,setShowNav} = useAuth();
   const logout = useLogout();
 
   useEffect(()=>{
@@ -24,7 +22,7 @@ const Profile = ({items}) => {
       })
     ))
 
-    
+    return () => isMounted = false;
   },[])
 
   const signOut = async ()=>{

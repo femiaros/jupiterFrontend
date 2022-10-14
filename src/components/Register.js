@@ -1,5 +1,6 @@
-import { useRef, useState, useEffect, useContext } from "react";
-import AuthContext from '../context/AuthProvider';
+import { useRef, useState, useEffect } from "react";
+import useAuth from '../hooks/useAuth';
+import autoPageUp from '../hooks/autoPageUp';
 import {Link as LinkR} from "react-router-dom";
 import Pageheader from "./Pageheader"
 import {BsCheck} from 'react-icons/bs';
@@ -9,13 +10,13 @@ import axios from "../api/axios";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-const EMAIL_REGEX = /^([a-zA-Z0-9\.-]+)@([a-zA-Z0-9-]+).([a-z]{2,8})(.[a-z]{2,8})?$/;
+const EMAIL_REGEX = /^([a-zA-Z0-9\.-]+)@([a-zA-Z0-9-]+).([a-z]{2,8})(.[a-z]{2,8})$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = '/register';
 
 const Register = ({items}) => {
     const pageHeader = items[0].registerPageHeader[0]
-    const {setShowNav} = useContext(AuthContext);
+    const {setShowNav} = useAuth();
 
     const userRef = useRef();
     const errRef = useRef();
@@ -44,6 +45,7 @@ const Register = ({items}) => {
     useEffect(() => {
         userRef.current.focus();
         setShowNav(false);
+        autoPageUp();
     }, [])
     //when username field changes, check if its a valid name
     useEffect(() => {
@@ -111,8 +113,8 @@ const Register = ({items}) => {
         {success ?(
             <section className="Register">
                 <div className="register-container">
-                    <h1>Success</h1>
-                    <p><a href="#">Sign In</a></p>
+                    <h1>Registration Successful</h1>
+                    <p><LinkR to="/login">Sign In</LinkR></p>
                 </div>
             </section>
         ) : (
@@ -219,7 +221,7 @@ const Register = ({items}) => {
                             Must match the first password input field.
                         </p>
 
-                    <button disabled={!validName || !validEmail || !validPwd || !validMatch ? true : false}>Sign Up</button>
+                        <button disabled={!validName || !validEmail || !validPwd || !validMatch ? true : false}>Sign Up</button>
                     </form>
                     <p>
                         Already registered?<br />

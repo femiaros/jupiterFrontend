@@ -1,101 +1,92 @@
 import {AiOutlineHome} from 'react-icons/ai';
 import {MdOutlineTabletMac} from 'react-icons/md';
 import {AiOutlineMail} from 'react-icons/ai';
-import { useState, useEffect } from 'react';
+import { useState,useEffect} from 'react';
 
 
 const Contactform = () => {
+
+    let form;
+    let status;
 
     const [message,setMessage] = useState('');
     const [name,setName] = useState('');
     const [mail,setMail] = useState('');
     const [subject,setSubject] = useState('');
 
-    useEffect(() => {
+    //start of formspree code
+    
+    // Wait 1s after content renders,allocate variables 
+    setTimeout(function(){
+        // get the form elements defined in your form HTML above
+        form = document.querySelector("#my-form");
 
-        let isMounted = true;
+        // var button = document.querySelector(".submit");
+        status = document.querySelector(".status");
+    },1500)
 
-            //start of formspree code
+    function success() {
+        // form.reset();
+        console.log('success ran')
+        status.innerHTML = "Submitted, Thanks!";
+        status.classList.add("success")
 
-            // get the form elements defined in your form HTML above
+        setTimeout(function(){
+            status.innerHTML = "";
+            status.classList.remove("success")  
+        },4000)
+    }
 
-            var form = document.querySelector("#my-form");
-            // var button = document.querySelector(".submit");
-            var status = document.querySelector(".status");
+    function error() {
+        status.innerHTML = "Oops! There was a problem.";
+        console.log('error ran')
+        status.classList.add("error")
+        setTimeout(function(){
+            status.innerHTML = "";
+            status.classList.remove("error")  
+        },4000)
+    }
+        
+    // helper function for sending an AJAX request
+
+    function ajax(method, url, data, success, error) {
+        var xhr = new XMLHttpRequest();
+        xhr.open(method, url);
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.onreadystatechange = function () {
             
-
-            // Success and Error functions for after the form is submitted
-
-            function success() {
-                form.reset();
-                console.log('success ran')
-                status.innerHTML = "Submitted, Thanks!";
-                status.classList.add("success")
-
-                setTimeout(function(){
-                    status.innerHTML = "";
-                    status.classList.remove("success")  
-                },4000)
+            if (xhr.readyState !== XMLHttpRequest.DONE) return;
+            if (xhr.status === 200) {
+                success(xhr.response, xhr.responseType);
+            } else {
+                error(xhr.status, xhr.response, xhr.responseType);
             }
+        };
+        xhr.send(data);
+    }
 
-            function error() {
-                status.innerHTML = "Oops! There was a problem.";
-                console.log('error ran')
-                status.classList.add("error")
-                setTimeout(function(){
-                    status.innerHTML = "";
-                  status.classList.remove("error")  
-                },4000)
-            }
+    // handle the form submission event
+    const submitForm = (ev)=>{
+    
+        ev.preventDefault();
 
-            // handle the form submission event
+        setMessage('');
+        setName('');
+        setMail('');
+        setSubject('');
 
-            form.addEventListener("submit", function (ev) {
-                ev.preventDefault();
+        var data = new FormData(form);
+        ajax(form.method, form.action, data, success, error);
+      
+    }
 
-                setMessage('');
-                setName('');
-                setMail('');
-                setSubject('');
-
-                var data = new FormData(form);
-                ajax(form.method, form.action, data, success, error);
-                
-            });
-           
-       
-
-        // helper function for sending an AJAX request
-
-        function ajax(method, url, data, success, error) {
-            var xhr = new XMLHttpRequest();
-            xhr.open(method, url);
-            xhr.setRequestHeader("Accept", "application/json");
-            xhr.onreadystatechange = function () {
-                
-                if (xhr.readyState !== XMLHttpRequest.DONE) return;
-                if (xhr.status === 200) {
-                    isMounted && success(xhr.response, xhr.responseType);
-                } else {
-                    isMounted && error(xhr.status, xhr.response, xhr.responseType);
-                }
-            };
-            xhr.send(data);
-        }
-        //end of formspree code
-
-        return () => {
-            isMounted = false;
-        }
-
-    }, [])
- 
+    //end of formspree code
 
   return (
     <div className='Contactform'>
         <div className="Contactform-container">
             <h2>Get in touch</h2>
-            <form action="https://formspree.io/f/mpzoyyok" method="POST" id='my-form' >
+            <form action="https://formspree.io/f/mpzoyyok" method="POST" id='my-form' onSubmit={(ev)=>submitForm(ev)}>
 
                 <div className="form-group">
                     <label htmlFor="message">Message</label>
@@ -159,6 +150,7 @@ const Contactform = () => {
                 <button type='submit' className="contact-btn">Submit</button>
                 <div className="status"></div>
             </form>
+
             <div className="contactform-extra-wrapper">
                 <div className="contactform-extra">
                     <div className="extra-icon">

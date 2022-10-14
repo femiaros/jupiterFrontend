@@ -1,14 +1,12 @@
+import Socials from "./Socials";
 
 const Experts = ({expertsData}) => {
-
-    
-
 
   return (
     <div className="Experts">
         <div className="experts-container">
 
-            <h1>Meet Our Experts</h1>
+            <h1 className="heading1">Meet Our Experts</h1>
 
             <div className="experts-wrapper">
 
@@ -21,6 +19,7 @@ const Experts = ({expertsData}) => {
                             <h3>{item.name}</h3>
                             <p>{item.description}</p>
                         </div>
+                        <Socials/>
                     </div>
                 ))}
             

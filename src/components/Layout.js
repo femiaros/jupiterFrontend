@@ -1,7 +1,8 @@
 import {Outlet} from "react-router-dom";
 import {FaBars} from 'react-icons/fa';
+import Socials from "./Socials";
 import {Link as LinkS} from 'react-scroll';
-import {Link as LinkR} from "react-router-dom";
+import {Link as LinkR} from "react-router-dom"; 
 import { animateScroll as scroll } from "react-scroll";
 import {FaFacebookF} from 'react-icons/fa';
 import {BsInstagram} from 'react-icons/bs';
@@ -9,27 +10,25 @@ import {BsTwitter} from 'react-icons/bs';
 import {CgProfile} from 'react-icons/cg';
 import {MdKeyboardArrowUp} from 'react-icons/md';
 import useAuth from '../hooks/useAuth';
-import { useEffect,useState, useContext} from "react";
-import AuthContext from '../context/AuthProvider';
+import { useEffect,useState} from "react";
 
-const Layout = ({menuOpen,menuToggle}) => {
-    const {auth} = useAuth();
-    // auth.user = true;
-    const {showNav} = useContext(AuthContext);
+const Layout = () => {
+    const {auth,showNav,menuOpen,setMenuOpen,menuToggle} = useAuth();
     const [scrollHeader, setScrollHeader] = useState(false);
     const [scrollBtn, setScrollBtn] = useState(false);
 
-    const changeHeader =()=>{
-        window.scrollY >= 90 ? setScrollHeader(true): setScrollHeader(false);
+    const windonChanges =()=>{
+        window.scrollY >= 60 ? setScrollHeader(true): setScrollHeader(false);
         window.scrollY >= 300 ? setScrollBtn(true): setScrollBtn(false);
     }
 
     useEffect(()=>{
-        window.addEventListener('scroll',changeHeader)
+        window.addEventListener('scroll',windonChanges)
     },[])
 
     const upScroll = ()=>{
         scroll.scrollToTop()
+        menuToggle();
     }
 
   return (
@@ -71,15 +70,17 @@ const Layout = ({menuOpen,menuToggle}) => {
                     <li className="links" onClick={menuToggle}>
                         <LinkR to='/contact'>contact</LinkR>
                     </li>
+
+                    <Socials/>
                 </ul>
                 <div className="member">
                     {!auth?.user ? (
-                            <span className="btn">
+                            <span className="btn" onClick={menuToggle}>
                                 <LinkR to='/login'>Join</LinkR>
                             </span>
                         ):(
                             <>
-                                <div className="profile-icon">
+                                <div className="profile-icon" onClick={menuToggle}>
                                     <LinkR to='/profile'><CgProfile/></LinkR>
                                     <span className="resource">Resource </span>
                                 </div>
@@ -87,13 +88,13 @@ const Layout = ({menuOpen,menuToggle}) => {
                         )}
                     
                 </div>
-                <div className="menuIcon" onClick={menuToggle}>
+                <div className="menuIcon" onClick={()=>setMenuOpen(!menuOpen)}>
                     <FaBars className="hamburger"/>
                 </div>
 
             </nav>
         </header>
-        <main className="App">
+        <main className="App fixed-padding">
             <Outlet/>
         </main>
         <footer className="Footer">

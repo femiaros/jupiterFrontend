@@ -1,16 +1,16 @@
 import Pageheader from "./Pageheader";
 import Intro from "./Intro";
-import {useContext,useEffect} from "react";
-import AuthContext from '../context/AuthProvider';
+import {useEffect} from "react";
+import useAuth from '../hooks/useAuth';
 
 const Introduction = ({items}) => {
   const pageHeader = items[0].introductionPageHeader[0];
-  const {setShowNav} = useContext(AuthContext);
+  const {setShowNav} = useAuth();
 
   useEffect(() => {
     setShowNav(true);
   }, [])
-
+ 
   return (
     <div className="Introduction">
         <Pageheader pageHeader={pageHeader}/>

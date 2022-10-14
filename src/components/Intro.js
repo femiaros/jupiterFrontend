@@ -19,7 +19,7 @@ const Intro = () => {
                 const response = await axiosPrivate.get('/introtuts', {
                     signal: controller.signal
                 });
-                isMounted && setIntroTut(response.data);
+                isMounted && setIntroTut(response.data); 
             } catch (err) {
                 console.error(err);
                 if (err?.response.status === 401){//403

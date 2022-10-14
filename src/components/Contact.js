@@ -1,16 +1,20 @@
-import {useContext,useEffect} from 'react'
-import AuthContext from '../context/AuthProvider';
-import Pageheader from "./Pageheader"
+import {useEffect} from 'react';
+import useAuth from '../hooks/useAuth'; 
+import Pageheader from "./Pageheader" 
+import autoPageUp from '../hooks/autoPageUp';
 import Contactform from "./Contactform"
 import Subscribe from "./Subscribe"
 
 const Contact = ({items}) => {
   const pageHeader = items[0].contactPageHeader[0];
-  const {setShowNav} = useContext(AuthContext);
+  const {setShowNav} = useAuth();
 
   useEffect(() => {
-    setShowNav(true);
+    autoPageUp();
+    setShowNav(false);
   }, [])
+
+  
 
   return (
     <div className='Contact'>

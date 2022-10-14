@@ -1,18 +1,17 @@
 import Pageheader from "./Pageheader"
-import { useRef, useState, useEffect, useContext} from "react";
+import { useRef, useState, useEffect} from "react";
 import useAuth from '../hooks/useAuth';
+import autoPageUp from '../hooks/autoPageUp';
 import {Link as LinkR,useNavigate,useLocation} from "react-router-dom";
-import AuthContext from '../context/AuthProvider';
 
 import axios from "../api/axios";
 const LOGIN_URL = '/auth';
 
 const Login = ({items}) => {
     const pageHeader = items[0].loginPageHeader[0]
-    const {setShowNav} = useContext(AuthContext);
 
     // getting required contexts from useContext(AuthContext) with is combined in useAuth
-    const {setAuth} = useAuth();
+    const {setAuth,setShowNav} = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -31,6 +30,7 @@ const Login = ({items}) => {
     useEffect(() => {
         userRef.current.focus();
         setShowNav(false);
+        autoPageUp();
     }, [])
     //clear out error msg any time user types input
     useEffect(() => {

@@ -29,6 +29,7 @@ const Pageheader = ({pageHeader}) => {
             <h1>{pageHeader.header}</h1>
             <div className="contact-links">
                 <LinkR to={pageHeader.homeLink.link}>{pageHeader.homeLink.linkTitle}</LinkR>
+                
                 <LinkR onClick={pageHeader.signOut} to={pageHeader.secondLink.link} className="page-link">{pageHeader.secondLink.linkTitle}</LinkR>
             </div>
         </div>
